@@ -12,7 +12,6 @@ class CardBoxComponent extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15),
           topRight: Radius.circular(15),
@@ -20,21 +19,28 @@ class CardBoxComponent extends StatelessWidget {
           bottomRight: Radius.circular(15),
         ),
         boxShadow: [
-          BoxShadow(color: Colors.black, spreadRadius: 2, offset: Offset(2, 2)),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.5),
+            spreadRadius: 2,
+            offset: Offset(0, 2),
+            blurRadius: 2,
+          ),
         ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/$asset', width: 60, height: 60),
+          Image.asset('assets/$asset', width: 45, height: 45),
           Text(
             text,
             style: TextStyle(
               color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              fontSize: 14,
             ),
+            textAlign: TextAlign.center,
           ),
         ],
       ),
