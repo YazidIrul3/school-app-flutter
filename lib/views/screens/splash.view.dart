@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_application_1/views/screens/home.view.dart';
+import 'package:flutter_application_1/views/screens/main.view.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/global.colors.dart';
@@ -11,8 +12,12 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 1), () {
-      Get.to(HomeView());
+    Future.delayed(Duration(seconds: 2), () {
+      try {
+        Get.to(() => MianView()); // bisa diganti LoginView dulu untuk uji coba
+      } catch (e) {
+        print("ERROR NAVIGASI: $e");
+      }
     });
     return Scaffold(
       backgroundColor: GlobalColors.mainColor,
