@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 
 class TextFormGlobal extends StatelessWidget {
   final String hintText;
+  final TextEditingController controller;
   final TextInputType? formType;
 
-  const TextFormGlobal({super.key, required this.hintText, this.formType});
+  const TextFormGlobal({
+    super.key,
+    required this.hintText,
+    this.formType,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +26,7 @@ class TextFormGlobal extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        controller: controller,
         keyboardType: formType,
         obscureText: isPassword,
         decoration: InputDecoration(

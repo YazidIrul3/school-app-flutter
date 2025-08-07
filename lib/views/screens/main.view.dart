@@ -7,21 +7,25 @@ import 'package:flutter_application_1/views/screens/profile.view.dart';
 import 'package:flutter_application_1/views/screens/schedule.view.dart';
 import 'package:flutter_application_1/views/widgets/header.global.dart';
 
-class MianView extends StatefulWidget {
-  const MianView({super.key});
+class MainView extends StatefulWidget {
+  const MainView({super.key});
 
   @override
-  State<MianView> createState() => _MianViewState();
+  State<MainView> createState() => _MainViewState();
 }
 
-class _MianViewState extends State<MianView> {
+class _MainViewState extends State<MainView> {
   List<Widget> _pages = [HomeView(), NewsView(), ScheduleView(), ProfileView()];
   int myIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HeaderGlobal(),
-      body: IndexedStack(index: myIndex, children: _pages),
+      body: IndexedStack(
+        index: myIndex,
+        children: _pages,
+        alignment: Alignment.center,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {
