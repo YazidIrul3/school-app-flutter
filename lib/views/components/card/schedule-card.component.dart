@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ScheduleCardComponent extends StatelessWidget {
-  const ScheduleCardComponent({super.key});
+  final String text;
+  const ScheduleCardComponent({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +11,7 @@ class ScheduleCardComponent extends StatelessWidget {
       height: 70,
       alignment: Alignment.center,
       child: Text(
-        'Senin',
+        text,
         style: TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,

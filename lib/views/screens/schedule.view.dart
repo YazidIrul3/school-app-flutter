@@ -20,11 +20,13 @@ class ScheduleView extends StatelessWidget {
               child: Row(
                 spacing: 10,
                 children: [
-                  ScheduleCardComponent(),
-                  ScheduleCardComponent(),
-                  ScheduleCardComponent(),
-                  ScheduleCardComponent(),
-                  ScheduleCardComponent(),
+                  ScheduleCardComponent(text: 'Senin'),
+                  ScheduleCardComponent(text: 'Selasa'),
+                  ScheduleCardComponent(text: 'Rabu'),
+                  ScheduleCardComponent(text: 'Kamis'),
+                  ScheduleCardComponent(text: 'Jumat'),
+                  ScheduleCardComponent(text: 'Sabtu'),
+                  ScheduleCardComponent(text: 'Minggu'),
                 ],
               ),
             ),

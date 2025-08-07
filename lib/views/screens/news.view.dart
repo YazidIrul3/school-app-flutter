@@ -7,15 +7,25 @@ class NewsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          spacing: 10,
-          children: [
-            CardNewsComponent(),
-            CardNewsComponent(),
-            CardNewsComponent(),
-          ],
+      body: ScrollConfiguration(
+        behavior: ScrollBehavior().copyWith(overscroll: false),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            spacing: 13,
+            children: [
+              CardNewsComponent(),
+              CardNewsComponent(),
+              CardNewsComponent(),
+              CardNewsComponent(),
+              CardNewsComponent(),
+              CardNewsComponent(),
+              CardNewsComponent(),
+              CardNewsComponent(),
+              CardNewsComponent(),
+              CardNewsComponent(),
+            ],
+          ),
         ),
       ),
     );

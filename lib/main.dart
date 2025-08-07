@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/views/screens/home.view.dart';
+import 'package:flutter_application_1/bloc/login/login.bloc.dart';
 import 'package:flutter_application_1/views/screens/main.view.dart';
-import 'package:flutter_application_1/views/screens/profile.view.dart';
-import 'package:flutter_application_1/views/screens/schedule.view.dart';
-import 'package:flutter_application_1/views/screens/splash.view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -15,10 +13,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'FLutter',
-      debugShowCheckedModeBanner: false,
-      home: SplashView(),
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (_) => LoginBloc())],
+      child: MaterialApp(
+        title: 'FLutter',
+        debugShowCheckedModeBanner: false,
+        home: MainView(),
+      ),
     );
   }
 }

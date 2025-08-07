@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/bloc/login/login.bloc.dart';
+import 'package:flutter_application_1/bloc/login/login.event.dart';
+import 'package:flutter_application_1/bloc/login/login.state.dart';
+import 'package:flutter_application_1/requests/login.request.dart';
 import 'package:flutter_application_1/utils/global.colors.dart';
 import 'package:flutter_application_1/views/screens/home.view.dart';
+import 'package:flutter_application_1/views/screens/main.view.dart';
 import 'package:flutter_application_1/views/widgets/button.global.dart';
 import 'package:flutter_application_1/views/widgets/text.form.global.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({super.key});
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -55,18 +70,65 @@ class LoginView extends StatelessWidget {
                     TextFormGlobal(
                       hintText: 'Username',
                       formType: TextInputType.text,
+                      controller: usernameController,
                     ),
                     TextFormGlobal(
                       hintText: 'Password',
                       formType: TextInputType.visiblePassword,
+                      controller: passwordController,
                     ),
                     const SizedBox(height: 5),
-                    ButtonGlobal(
-                      text: 'Login',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomeView()),
+
+                    BlocConsumer<LoginBloc, LoginState>(
+                      listener: (context, state) {
+                        if (state is LoginSuccess) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MainView(),
+                            ),
+                          );
+                        } else if (state is LoginFailure) {
+                          print(state.message);
+                          // show error dialog
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text("Login Gagal"),
+                              content: Text(
+                                state.message,
+                              ), // error message dari backend
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text("OK"),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      },
+                      builder: (context, state) {
+                        if (state is LoginLoading) {
+                          return CircularProgressIndicator(
+                            color: Colors.blueAccent,
+                          );
+                        }
+                        return SizedBox(
+                          width: MediaQuery.sizeOf(context).width,
+                          child: ButtonGlobal(
+                            text: 'Login',
+                            onPressed: () {
+                              final requestBody = LoginRequest(
+                                username: usernameController.text,
+                                password: passwordController.text,
+                              );
+
+                              context.read<LoginBloc>().add(
+                                LoginSubmitted(requestBody),
+                              );
+                            },
+                          ),
                         );
                       },
                     ),

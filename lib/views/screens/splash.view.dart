@@ -5,7 +5,6 @@ import 'package:flutter_application_1/views/screens/main.view.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/global.colors.dart';
-import 'package:flutter_application_1/views/screens/login.view.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({super.key});
@@ -14,7 +13,7 @@ class SplashView extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 2), () {
       try {
-        Get.to(() => MianView()); // bisa diganti LoginView dulu untuk uji coba
+        Get.to(() => MainView()); // bisa diganti LoginView dulu untuk uji coba
       } catch (e) {
         print("ERROR NAVIGASI: $e");
       }

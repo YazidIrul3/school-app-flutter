@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/global.colors.dart';
+import 'package:flutter_application_1/utils/global.session.dart';
 import 'package:flutter_application_1/views/components/card/card-box.component.dart';
+import 'package:flutter_application_1/views/screens/login.view.dart';
 import 'package:flutter_application_1/views/screens/news.view.dart';
 import 'package:flutter_application_1/views/screens/profile.view.dart';
 import 'package:flutter_application_1/views/screens/schedule.view.dart';
@@ -16,6 +18,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final token = GlobalSession().getAccessToken();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,16 +41,29 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ],
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Silahkan login untuk mengakses fitur'),
-                  IconButton(
-                    onPressed: null,
-                    icon: Icon(Icons.account_box_outlined, color: Colors.black),
-                  ),
-                ],
-              ),
+
+              child: token == null || token == ''
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Silahkan login untuk mengakses fitur'),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginView(),
+                              ),
+                            );
+                          },
+                          icon: Icon(
+                            Icons.account_box_outlined,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    )
+                  : SizedBox(),
             ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 20),
