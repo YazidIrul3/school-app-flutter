@@ -17,5 +17,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(LoginFailure("Error $e"));
       }
     });
+
+    on(<Logout>(event, emit) async {
+      final globalSession = GlobalSession();
+
+      globalSession.removeAccessToken();
+      emit(LogoutSuccess());
+    });
   }
 }

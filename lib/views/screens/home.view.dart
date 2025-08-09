@@ -9,6 +9,7 @@ import 'package:flutter_application_1/views/screens/profile.view.dart';
 import 'package:flutter_application_1/views/screens/schedule.view.dart';
 import 'package:flutter_application_1/views/widgets/bottom-navigation.global.dart';
 import 'package:flutter_application_1/views/widgets/header.global.dart';
+import 'package:flutter_application_1/views/widgets/login-btn.global.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -28,43 +29,9 @@ class _HomeViewState extends State<HomeView> {
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.all(7),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.elliptical(20, 20)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.3),
-                    offset: Offset(1, 2),
-                    spreadRadius: 2,
-                  ),
-                ],
-              ),
-
-              child: token == null || token == ''
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Silahkan login untuk mengakses fitur'),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginView(),
-                              ),
-                            );
-                          },
-                          icon: Icon(
-                            Icons.account_box_outlined,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    )
-                  : SizedBox(),
-            ),
+            token == null || token == ''
+                ? LoginButtonGlobal()
+                : SizedBox(height: 2),
             Container(
               padding: EdgeInsets.symmetric(vertical: 20),
               child: Column(

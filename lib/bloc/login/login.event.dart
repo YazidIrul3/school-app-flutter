@@ -7,3 +7,7 @@ class LoginSubmitted extends LoginEvent {
 
   LoginSubmitted(this.requestBody);
 }
+
+final class Logout extends LoginEvent {
+  
+}

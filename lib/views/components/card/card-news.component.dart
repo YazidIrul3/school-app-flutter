@@ -2,11 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/global.colors.dart';
 
 class CardNewsComponent extends StatelessWidget {
-  const CardNewsComponent({super.key});
+  final String title;
+  final String author;
+  final String date;
+
+  const CardNewsComponent({
+    super.key,
+    required this.title,
+    required this.author,
+    required this.date,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -25,7 +35,7 @@ class CardNewsComponent extends StatelessWidget {
         spacing: 5,
         children: [
           Text(
-            'Telah Bergabung Dokter Sub Spesialis bedah digestif',
+            title,
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -34,7 +44,7 @@ class CardNewsComponent extends StatelessWidget {
             ),
           ),
           Text(
-            'Admin',
+            author,
             style: TextStyle(
               color: GlobalColors.mainColor,
               fontWeight: FontWeight.w500,
@@ -43,7 +53,7 @@ class CardNewsComponent extends StatelessWidget {
           ),
 
           Text(
-            '09 Juni 2005',
+            date,
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w100,
