@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/login/login.event.dart';
+import 'package:flutter_application_1/repository/auth.repo.dart';
+import 'package:flutter_application_1/responses/profile.response.dart';
+import 'package:flutter_application_1/responses/user.response.dart';
 import 'package:flutter_application_1/utils/global.session.dart';
 import 'package:flutter_application_1/views/screens/main.view.dart';
 import 'package:flutter_application_1/views/widgets/bottom-navigation.global.dart';
@@ -15,71 +18,96 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
   final token = GlobalSession().getAccessToken();
+  final authRepo = AuthRepo();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: HeaderGlobal(),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
-        child: token == null || token == ''
-            ? LoginButtonGlobal()
-            : Column(
-                children: [
-                  Row(
-                    spacing: 20,
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          boxShadow: [BoxShadow(color: Colors.grey)],
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                      ),
+      body: FutureBuilder<ProfileResponse>(
+        future: authRepo.getProfile(
+          '20|fe4iKcvTIPzLhWknSRUfXXz4DKUDqV5LGy9b0eCqedac38ed',
+        ),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+          if (snapshot.hasError) {
+            debugPrint('ProfileView Error: ${snapshot.error}');
+            return const Center(
+              child: Text('Terjadi kesalahan saat memuat profile'),
+            );
+          }
+
+          final data = snapshot.data;
+
+          return SingleChildScrollView(
+            padding: EdgeInsets.all(20),
+            child: token == null || token == ''
+                ? LoginButtonGlobal()
+                : Column(
+                    children: [
+                      Row(
+                        spacing: 20,
                         children: [
-                          Text(
-                            'Yazid Khairul',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
+                          Container(
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              boxShadow: [BoxShadow(color: Colors.grey)],
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
                             ),
                           ),
-                          Text('Kelas 12 RPL 1'),
-                          SizedBox(height: 10),
-                          ElevatedButton(
-                            onPressed: () async {
-                              final globalSession = GlobalSession();
-                              globalSession.removeAccessToken();
 
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const MainView(),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                data?.data?.username.toString() ?? '',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red,
-                              foregroundColor: Colors.red,
-                            ),
+                              ),
+                              Text('Kelas 12 RPL 1'),
+                              SizedBox(height: 10),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  final globalSession = GlobalSession();
+                                  globalSession.removeAccessToken();
 
-                            child: Text(
-                              'Logout',
-                              style: TextStyle(color: Colors.white),
-                            ),
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const MainView(),
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red,
+                                  foregroundColor: Colors.red,
+                                ),
+
+                                child: Text(
+                                  'Logout',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ],
                   ),
-                ],
-              ),
+          );
+        },
       ),
     );
   }
 }
+
+/* */
