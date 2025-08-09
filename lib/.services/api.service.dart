@@ -107,4 +107,76 @@ class APIService {
       throw Exception('Unknown error: $e');
     }
   }
+
+  Future<T> get<T>(
+    String url, {
+    required T Function(Map<String, dynamic>) fromJson,
+  }) async {
+    try {
+      final response = await dio.get(
+        '$baseURL/$url',
+        options: Options(
+          responseType: ResponseType.json,
+          method: "GET",
+          headers: {
+            'x-api-key':
+                r'fdkjafkljdkj\dfw4$fd22!dfadsjkfjdslkj%fdaklfjdjfa!dfasdfjdjs',
+            'Accept': 'application/json',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return fromJson(response.data);
+      } else {
+        throw Exception(
+          'HTTP ${response.statusCode}: ${response.statusMessage}',
+        );
+      }
+    } on DioError catch (e) {
+      final message = e.message;
+      throw Exception('DioError: $message');
+    } catch (e) {
+      throw Exception('Unknown error: $e');
+    }
+  }
+
+  Future<T> getAuth<T>(
+    String url, {
+    required T Function(Map<String, dynamic>) fromJson,
+    required String token,
+  }) async {
+    try {
+      final response = await dio.get(
+        '$baseURL/$url',
+        options: Options(
+          responseType: ResponseType.json,
+          method: "GET",
+          headers: {
+            'x-api-key':
+                r'fdkjafkljdkj\dfw4$fd22!dfadsjkfjdslkj%fdaklfjdjfa!dfasdfjdjs',
+            'Authorization': 'Bearer $token',
+            'Accept': 'application/json',
+          },
+        ),
+      );
+
+      print('response ${response.statusCode}');
+
+      if (response.statusCode == 200) {
+        return fromJson(response.data);
+      } else if (response.statusCode == 401) {
+        throw Exception('Unathorization');
+      } else {
+        throw Exception(
+          'HTTP ${response.statusCode}: ${response.statusMessage}',
+        );
+      }
+    } on DioError catch (e) {
+      final message = e.message;
+      throw Exception('DioError: $message');
+    } catch (e) {
+      throw Exception('Unknown error: $e');
+    }
+  }
 }
