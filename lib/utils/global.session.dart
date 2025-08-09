@@ -10,8 +10,6 @@ class GlobalSession {
     final pref = await SharedPreferences.getInstance();
     final accessToken = pref.getString('token');
 
-    print('token $accessToken');
-
     return accessToken ?? '';
   }
 
