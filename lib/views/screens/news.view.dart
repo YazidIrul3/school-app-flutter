@@ -46,6 +46,7 @@ class _NewsViewState extends State<NewsView> {
                 spacing: 13,
                 children: newsList.map((news) {
                   return CardNewsComponent(
+                    id: news?.id,
                     title: news.title.toString(),
                     author: news.author?.username ?? '',
                     date: news.date_published.toString(),

@@ -84,7 +84,7 @@ class APIService {
 
   Future<T> post<T>(
     String url, {
-    required Map<String, dynamic> data,
+    Map<String, dynamic>? data,
     required T Function(Map<String, dynamic>) fromJson,
   }) async {
     try {
@@ -100,9 +100,6 @@ class APIService {
         ),
       );
       return fromJson(response.data);
-    } on DioError catch (e) {
-      final message = e.message;
-      throw Exception('DioError: $message');
     } catch (e) {
       throw Exception('Unknown error: $e');
     }
@@ -133,9 +130,6 @@ class APIService {
           'HTTP ${response.statusCode}: ${response.statusMessage}',
         );
       }
-    } on DioError catch (e) {
-      final message = e.message;
-      throw Exception('DioError: $message');
     } catch (e) {
       throw Exception('Unknown error: $e');
     }
@@ -172,9 +166,6 @@ class APIService {
           'HTTP ${response.statusCode}: ${response.statusMessage}',
         );
       }
-    } on DioError catch (e) {
-      final message = e.message;
-      throw Exception('DioError: $message');
     } catch (e) {
       throw Exception('Unknown error: $e');
     }

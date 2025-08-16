@@ -16,6 +16,6 @@ class GlobalSession {
   Future<void> removeAccessToken() async {
     final pref = await SharedPreferences.getInstance();
 
-    await pref.remove('token');
+    await pref.clear();
   }
 }
