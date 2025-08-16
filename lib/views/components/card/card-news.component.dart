@@ -1,66 +1,75 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/global.colors.dart';
+import 'package:flutter_application_1/views/screens/news-detail.view.dart';
 
 class CardNewsComponent extends StatelessWidget {
   final String title;
   final String author;
   final String date;
+  final id;
 
   const CardNewsComponent({
     super.key,
     required this.title,
     required this.author,
     required this.date,
+    required this.id,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: Colors.white,
-
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
-            spreadRadius: 2,
-            offset: Offset(2, 2),
-            blurRadius: 10,
-          ),
-        ],
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => NewsDetailView(id: id)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 5,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: Colors.white,
 
-              fontSize: 17,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.2),
+              spreadRadius: 2,
+              offset: Offset(2, 2),
+              blurRadius: 10,
             ),
-          ),
-          Text(
-            author,
-            style: TextStyle(
-              color: GlobalColors.mainColor,
-              fontWeight: FontWeight.w500,
-              fontSize: 15,
-            ),
-          ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 5,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
 
-          Text(
-            date,
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w100,
-              fontSize: 15,
+                fontSize: 17,
+              ),
             ),
-          ),
-        ],
+            Text(
+              author,
+              style: TextStyle(
+                color: GlobalColors.mainColor,
+                fontWeight: FontWeight.w500,
+                fontSize: 15,
+              ),
+            ),
+
+            Text(
+              date,
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w100,
+                fontSize: 15,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

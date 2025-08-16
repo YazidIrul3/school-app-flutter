@@ -1,8 +1,10 @@
-import 'package:flutter_application_1/.services/api.service.dart';
+import 'dart:convert';
+
 import 'package:flutter_application_1/requests/login.request.dart';
 import 'package:flutter_application_1/responses/login.response.dart';
 import 'package:flutter_application_1/responses/profile.response.dart';
 import 'package:flutter_application_1/responses/user.response.dart';
+import 'package:flutter_application_1/services/api.service.dart';
 
 class AuthRepo {
   final api = APIService();
@@ -20,6 +22,13 @@ class AuthRepo {
       'user/profile',
       fromJson: (json) => ProfileResponse.fromJson(json),
       token: token,
+    );
+  }
+
+  Future<void> logout() {
+    return api.post(
+      'user/logout',
+      fromJson: (json) => UserResponse.fromJson(json),
     );
   }
 }

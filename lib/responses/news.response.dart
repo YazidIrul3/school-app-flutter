@@ -31,3 +31,21 @@ class NewsResponse {
     );
   }
 }
+
+class NewsDetailResponse {
+  final NewsResponse? data;
+  final String? message;
+  final bool? success;
+  final bool? error;
+
+  NewsDetailResponse({this.data, this.error, this.message, this.success});
+
+  factory NewsDetailResponse.fromJson(Map<String, dynamic> json) {
+    return NewsDetailResponse(
+      data: json['data'] != null ? NewsResponse.fromJson(json['data']) : null,
+      success: json['success'],
+      error: json['error'],
+      message: json['message'],
+    );
+  }
+}
