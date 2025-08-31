@@ -23,6 +23,23 @@ class _NewsDetailViewState extends State<NewsDetailView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 70,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Detail News',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+      ),
+
       body: FutureBuilder<NewsDetailResponse>(
         future: newsRepo.getDetailNews(id: widget.id),
         builder: (context, snapshot) {
@@ -37,25 +54,27 @@ class _NewsDetailViewState extends State<NewsDetailView> {
           }
 
           final detail = snapshot.data!.data!;
-          return Container(
-            alignment: Alignment.topLeft,
+          return SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.network(
-                  detail.image.toString(),
+                Image.asset(
+                  'assets/neper1.jpg',
                   width: double.infinity,
-                  height: 300,
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  fit: BoxFit.cover,
                 ),
 
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       detail.title.toString(),
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

@@ -10,7 +10,7 @@ class GlobalSession {
     final pref = await SharedPreferences.getInstance();
     final accessToken = pref.getString('token');
 
-    return accessToken ?? '';
+    return accessToken.toString();
   }
 
   Future<void> removeAccessToken() async {

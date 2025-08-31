@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 
 class ScheduleCardComponent extends StatelessWidget {
   final String text;
-  const ScheduleCardComponent({super.key, required this.text});
+  final String day;
+  const ScheduleCardComponent({
+    super.key,
+    required this.text,
+    required this.day,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +18,13 @@ class ScheduleCardComponent extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          color: Colors.black,
+          color: day == text ? Colors.white : Colors.black,
           fontWeight: FontWeight.bold,
           fontSize: 17,
         ),
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: day == text ? Colors.black : Colors.white,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.4),

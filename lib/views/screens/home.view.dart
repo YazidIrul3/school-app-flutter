@@ -1,14 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/utils/global.colors.dart';
 import 'package:flutter_application_1/utils/global.session.dart';
 import 'package:flutter_application_1/views/components/card/card-box.component.dart';
-import 'package:flutter_application_1/views/screens/login.view.dart';
-import 'package:flutter_application_1/views/screens/news.view.dart';
-import 'package:flutter_application_1/views/screens/profile.view.dart';
-import 'package:flutter_application_1/views/screens/schedule.view.dart';
-import 'package:flutter_application_1/views/widgets/bottom-navigation.global.dart';
-import 'package:flutter_application_1/views/widgets/header.global.dart';
+import 'package:flutter_application_1/views/screens/event.view.dart';
+import 'package:flutter_application_1/views/screens/extracurricular.view.dart';
+import 'package:flutter_application_1/views/screens/material.view.dart';
+import 'package:flutter_application_1/views/screens/task.view.dart';
 import 'package:flutter_application_1/views/widgets/login-btn.global.dart';
 
 class HomeView extends StatefulWidget {
@@ -80,6 +77,8 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 10),
+
                   GridView.count(
                     crossAxisCount: 3, // jumlah kolom
                     crossAxisSpacing: 10,
@@ -89,24 +88,26 @@ class _HomeViewState extends State<HomeView> {
                         NeverScrollableScrollPhysics(), // biar tidak scroll sendiri dalam scrollview
                     children: [
                       CardBoxComponent(
+                        page: TaskView(),
                         text: 'Tugas',
                         asset: 'schedule-icon.png',
                       ),
+
                       CardBoxComponent(
-                        text: 'Jadwal',
-                        asset: 'schedule-icon.png',
-                      ),
-                      CardBoxComponent(
-                        text: 'Pekerjaan Rumah',
-                        asset: 'schedule-icon.png',
-                      ),
-                      CardBoxComponent(
+                        page: MaterialView(),
                         text: 'Materi',
                         asset: 'schedule-icon.png',
                       ),
                       CardBoxComponent(text: 'PR', asset: 'schedule-icon.png'),
                       CardBoxComponent(
+                        page: EventView(),
                         text: 'Kegiatan',
+                        asset: 'schedule-icon.png',
+                      ),
+
+                      CardBoxComponent(
+                        page: ExtracurricularView(),
+                        text: 'Eskul',
                         asset: 'schedule-icon.png',
                       ),
                     ],

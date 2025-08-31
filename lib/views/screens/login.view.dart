@@ -20,7 +20,6 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,6 @@ class _LoginViewState extends State<LoginView> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
-            width: double.infinity,
             padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,7 +138,7 @@ class _LoginViewState extends State<LoginView> {
                 Center(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     spacing: 4,
                     children: [
                       Text(

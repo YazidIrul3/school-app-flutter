@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_application_1/responses/list.response.dart';
 import 'package:flutter_application_1/responses/pagination.response.dart';
 
 class APIService {
@@ -10,7 +11,7 @@ class APIService {
     ),
   );
 
-  Future<List<T>> getList<T>(
+  Future<ListResponse<T>> getList<T>(
     String url, {
     required T Function(Map<String, dynamic>) fromJson,
   }) async {
@@ -26,24 +27,14 @@ class APIService {
         ),
       );
 
-      if (response.statusCode == 200) {
-        final body = response.data;
-        if (body is Map<String, dynamic> && body.containsKey('data')) {
-          final List data = body['data'];
-          return data.map((item) => fromJson(item)).toList();
-        } else if (body is List) {
-          // kalau endpoint memang langsung kirim array
-          return body.map((item) => fromJson(item)).toList();
-        } else {
-          throw Exception('Unexpected response format');
-        }
+      if (response.statusCode == 200 && response.data is Map<String, dynamic>) {
+        final body = response.data as Map<String, dynamic>;
+        return ListResponse.fromJson(body, fromJson);
       } else {
         throw Exception(
           'HTTP ${response.statusCode}: ${response.statusMessage}',
         );
       }
-    } on DioError catch (e) {
-      throw Exception('DioError: ${e.message}');
     } catch (e) {
       throw Exception('Unknown error: $e');
     }
@@ -75,8 +66,6 @@ class APIService {
           'HTTP ${response.statusCode}: ${response.statusMessage}',
         );
       }
-    } on DioError catch (e) {
-      throw Exception('DioError: ${e.message}');
     } catch (e) {
       throw Exception('Unknown error: $e');
     }
@@ -155,7 +144,7 @@ class APIService {
         ),
       );
 
-      print('response ${response.statusCode}');
+      print('response $response');
 
       if (response.statusCode == 200) {
         return fromJson(response.data);

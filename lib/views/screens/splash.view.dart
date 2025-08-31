@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter_application_1/views/screens/home.view.dart';
 import 'package:flutter_application_1/views/screens/main.view.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
