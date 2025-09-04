@@ -6,8 +6,8 @@ class APIService {
   final baseURL = "http://127.0.0.1:8000/api"; // Ganti ini jika pakai emulator
   final dio = Dio(
     BaseOptions(
-      connectTimeout: Duration(seconds: 5),
-      receiveTimeout: Duration(seconds: 5),
+      connectTimeout: Duration(seconds: 60 * 1000),
+      receiveTimeout: Duration(seconds: 60 * 1000),
     ),
   );
 

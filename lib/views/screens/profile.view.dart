@@ -4,7 +4,6 @@ import 'package:flutter_application_1/responses/profile.response.dart';
 import 'package:flutter_application_1/utils/global.session.dart';
 import 'package:flutter_application_1/views/screens/main.view.dart';
 import 'package:flutter_application_1/views/widgets/login-btn.global.dart';
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileView extends StatefulWidget {
@@ -15,7 +14,11 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
+  String? _token;
+  // final token = r'27|dej6MDqqrqCCAUKw51Xq38QAdX2rB8LfSF2Hcv3u9f7f39b4';
   final token = GlobalSession().getAccessToken();
+  final token2 = GlobalSession();
+
   final authRepo = AuthRepo();
 
   Future<void> _logout(BuildContext context) async {
@@ -31,11 +34,23 @@ class _ProfileViewState extends State<ProfileView> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _loadToken();
+  }
+
+  Future<void> _loadToken() async {
+    final token = await GlobalSession().getAccessToken();
+    setState(() {
+      _token = token;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<ProfileResponse>(
         future: authRepo.getProfile(
-          token.toString(),
+          _token.toString(),
         ), // pakai token dari GlobalSession
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -43,18 +58,24 @@ class _ProfileViewState extends State<ProfileView> {
           }
 
           if (snapshot.hasError) {
-            debugPrint('ProfileView Error: ${snapshot.error}');
-            return const Center(
-              child: Text('Terjadi kesalahan saat memuat profile'),
-            );
-
-            //  return const Padding(
-            //   padding: EdgeInsetsGeometry.all(20),
-            //   child: LoginButtonGlobal(),
+            print('token : ${_token}');
+            debugPrint('ProfileView Error: ${_token}');
+            // return const Center(
+            //   child: Text('Terjadi kesalahan saat memuat profile'),
             // );
+
+            return const Padding(
+              padding: EdgeInsetsGeometry.all(20),
+              child: LoginButtonGlobal(),
+            );
           }
 
           final data = snapshot.data;
+          print('profile data : ${{snapshot.data}}');
+
+          if (_token == null || _token == '') {
+            return LoginButtonGlobal();
+          }
 
           return SingleChildScrollView(
             padding: const EdgeInsets.all(20),
